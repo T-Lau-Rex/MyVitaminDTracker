@@ -17,4 +17,12 @@ interface VitaminDao {
     // Muestra la lista con los registros
     @Query("SELECT * FROM vitamin_records ORDER BY timestamp DESC")
     fun getAllRecords(): Flow<List<VitaminEntity>>
+
+    // Obtener registro de un día concreto
+    @Query("SELECT * FROM vitamin_records WHERE date = :date LIMIT 1")
+    suspend fun getRecordByDate(date: String): VitaminEntity?
+
+    // Actualiza un registro
+    @Update
+    suspend fun update(record: VitaminEntity)
 }
